@@ -8,8 +8,7 @@
 [![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/:github_org/:github_repo/test.yml?label=test)](https://github.com/:github_org/:github_repo/actions)
 [![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/:github_org/:github_repo/backwards_compatibility.yml?label=backwards_compatibility)](https://github.com/:github_org/:github_repo/actions)
 [![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/:github_org/:github_repo/build_docker_image.yml?label=build_docker_image)](https://github.com/:github_org/:github_repo/actions)
-[![php](https://img.shields.io/packagist/php-v/:vendor_name/:package_name.svg?color=purple)](https://packagist.org/packages/:vendor_name/:package_name/stats)
-[![License](https://img.shields.io/packagist/l/:vendor_name/:package_name?color=pink)](https://github.com/:github_org/:github_repo/blob/main/LICENSE.md)
+[![GitHub License](https://img.shields.io/badge/license-MIT-blue?style=flat-square)](https://github.com/:vendor_name/:package_name/blob/main/LICENSE.md)
 [![wakatime](https://wakatime.com/badge/github/:github_org/:github_repo.svg)](https://wakatime.com/badge/github/:github_org/:github_repo)
 [![Hits-of-Code](https://hitsofcode.com/github/:github_org/:github_repo?branch=main)](https://hitsofcode.com/github/:github_org/:github_repo/view?branch=main)
 
@@ -18,6 +17,7 @@
 - [Introduction](#introduction)
 - [Requirements](#requirements)
 - [Installation](#installation)
+- [Quick Start](#quick-start)
 - [Usage](#usage)
 - [Docker Image](#docker)
 - [Local Development](./LOCAL_DEVELOPMENT.md)
@@ -36,6 +36,35 @@
 
 ```bash
 composer require :vendor_name/:package_name
+```
+
+## Quick Start
+
+Run the Docker image:
+
+```shell
+docker run -d -p 8080:80 \
+  -e MCP_DEBUG=true \
+  :docker_registry_username/:docker_image_name:latest
+```
+
+Add the server to Claude:
+
+```shell
+claude mcp add --transport http :package_slug http://localhost:8080/mcp
+```
+
+Alternatively, add the server configuration directly:
+
+```json
+{
+    "mcpServers": {
+        ":package_slug": {
+            "type": "streamable-http",
+            "url": "http://localhost:8080/mcp"
+        }
+    }
+}
 ```
 
 ## Usage
