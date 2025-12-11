@@ -1,6 +1,9 @@
 services:
   prod:
-    build: .
+    build:
+      context: .
+      args:
+        VERSION: ${APP_VERSION:-0.0.0}
     ports:
       - "8081:80"
     volumes:
@@ -19,7 +22,8 @@ services:
       - .:/app
       - ./Caddyfile:/etc/frankenphp/Caddyfile:ro
     environment:
-      - MCP_DEBUG=${MCP_DEBUG:-false}
+      - APP_DEBUG=${APP_DEBUG:-false}
+      - APP_VERSION=${APP_VERSION:-0.0.0-dev}
     command: frankenphp run --config /etc/frankenphp/Caddyfile
 
   composer:
